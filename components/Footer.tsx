@@ -25,6 +25,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { TradeFXLogo } from './tradefx-logo';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 const navSections = [
   {
@@ -44,7 +45,7 @@ const navSections = [
     links: [
       { name: 'MetaTrader 5', href: '/platforms' },
       { name: 'Account Models', href: '/accounts' },
-      { name: 'Funding Gateways', href: '/funding' },
+      { name: 'Funding Gateways', href: '/deposit-withdrawal' },
       { name: 'Smart Trading', href: '/tools' },
       { name: 'Platform Status', href: '#' },
     ],
@@ -52,6 +53,7 @@ const navSections = [
   {
     serial: '03',
     title: 'Academy',
+    isComingSoon: true,
     links: [
       { name: 'Technical Analysis', href: '/education' },
       { name: 'Economic Trends', href: '/economic-calendar' },
@@ -114,6 +116,7 @@ const downloads = [
 
 export function Footer() {
   return (
+    <TooltipProvider>
     <footer className="relative bg-[#FAFAFA] border-t border-slate-200 overflow-hidden pt-24 pb-12">
       {/* 
         Awwwards Texture Overlay 
@@ -200,18 +203,40 @@ export function Footer() {
             <div key={section.serial} className="py-12 lg:py-20 px-4 lg:px-12 first:pl-0 last:pr-0 space-y-8 lg:space-y-12 border-b lg:border-b-0 border-slate-200">
               <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                 <span className="text-[10px] font-black text-slate-300 tracking-[0.3em]">{section.serial}</span>
-                <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{section.title}</h4>
+                <div className="flex items-center gap-2">
+                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{section.title}</h4>
+                  {(section as any).isComingSoon && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Lock className="w-3 h-3 text-primary" />
+                      </TooltipTrigger>
+                      <TooltipContent>Coming soon</TooltipContent>
+                    </Tooltip>
+                  )}
+                </div>
               </div>
               <ul className="space-y-4 lg:space-y-5">
                 {section.links.map((link) => (
                   <li key={link.name}>
-                    <Link 
-                      href={link.href} 
-                      className="text-[14px] lg:text-[15px] font-bold text-slate-500 hover:text-primary transition-all flex items-center justify-between group/link"
-                    >
-                      {link.name}
-                      <span className="w-5 h-px bg-slate-200 scale-x-0 group-hover/link:scale-x-full origin-left transition-transform" />
-                    </Link>
+                    {(section as any).isComingSoon ? (
+                      <div 
+                        className="text-[14px] lg:text-[15px] font-bold text-slate-300 cursor-not-allowed flex items-center justify-between group/link"
+                      >
+                        <span className="flex items-center gap-2">
+                          {link.name}
+                          <Lock className="w-2.5 h-2.5 opacity-40" />
+                        </span>
+                        <span className="w-5 h-px bg-slate-200 scale-x-0 group-hover/link:scale-x-full origin-left transition-transform" />
+                      </div>
+                    ) : (
+                      <Link 
+                        href={link.href} 
+                        className="text-[14px] lg:text-[15px] font-bold text-slate-500 hover:text-primary transition-all flex items-center justify-between group/link"
+                      >
+                        {link.name}
+                        <span className="w-5 h-px bg-slate-200 scale-x-0 group-hover/link:scale-x-full origin-left transition-transform" />
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -230,7 +255,7 @@ export function Footer() {
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">Risk Disclosure</span>
                </div>
                <p className="text-[12px] leading-[1.8] text-slate-400 font-medium text-justify antialiased">
-                Trading financial instruments involves significant risk. The possibility exists that you could sustain a loss of some or all of your initial investment. You should not invest or trade with money which you cannot afford to lose. TradeFX is not responsible for any losses incurred as a result of using our services.
+                Trading financial instruments involves significant risk. The possibility exists that you could sustain a loss of some or all of your initial investment. You should not invest or trade with money which you cannot afford to lose. New TradeFX is not responsible for any losses incurred as a result of using our services.
                </p>
             </div>
              <div className="flex-1 space-y-6">
@@ -292,5 +317,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </TooltipProvider>
   );
 }

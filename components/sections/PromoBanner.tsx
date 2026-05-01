@@ -3,16 +3,24 @@
 import React from 'react';
 import { StickyBanner } from '@/components/ui/sticky-banner';
 
-export function PromoBanner() {
-    const handleClose = () => {
-        // Dispatch custom event so Navbar can shift up
-        window.dispatchEvent(new CustomEvent('banner-closed'));
-    };
+export function PromoBanner({ onBannerClose }: { onBannerClose?: () => void }) {
+    const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+    React.useEffect(() => {
+        const handleSidebarToggle = (e: any) => {
+            const isOpen = e.detail?.isOpen ?? false;
+            setSidebarOpen(isOpen);
+        };
+        window.addEventListener('mobile-menu-toggled', handleSidebarToggle);
+        return () => window.removeEventListener('mobile-menu-toggled', handleSidebarToggle);
+    }, []);
+
+    if (sidebarOpen) return null;
 
     return (
         <StickyBanner
             className="bg-gradient-to-r from-[#2E62FF] via-[#4F7BFF] to-[#22C55E]"
-            onClose={handleClose}
+            onClose={onBannerClose}
         >
             <div className="flex items-center gap-2 sm:gap-3 text-white pr-6">
                 <span className="text-base sm:text-lg">🎉</span>

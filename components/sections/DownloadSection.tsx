@@ -129,7 +129,7 @@ export function DownloadSection() {
                         </h2>
 
                         <p className="text-slate-400 text-xs sm:text-sm md:text-base leading-relaxed font-medium mb-8 md:mb-10 max-w-[420px] lg:max-w-md">
-                            Take the full power of TradeFX's elite professional-grade liquidity and millisecond precision wherever you go. Seamless execution across desktop, web, and mobile platforms.
+                            Take the full power of New TradeFX's elite professional-grade liquidity and millisecond precision wherever you go. Seamless execution across desktop, web, and mobile platforms.
                         </p>
 
                         {/* Divider */}
@@ -155,7 +155,7 @@ export function DownloadSection() {
 
                         <Image
                             src="/assets/download-app.png"
-                            alt="TradeFX Application Environment"
+                            alt="New TradeFX Application Environment"
                             fill
                             className="object-contain object-center lg:object-right scale-[1.05] sm:scale-100 lg:scale-[1.15] xl:scale-[1.25] transform-origin-right drop-shadow-2xl z-10"
                             quality={100}

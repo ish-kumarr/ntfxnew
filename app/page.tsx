@@ -1,6 +1,5 @@
 import { Hero } from '@/components/sections/Hero';
 import { Markets } from '@/components/sections/Markets';
-import { Marquee } from '@/components/sections/Marquee';
 import { PromoBanner } from '@/components/sections/PromoBanner';
 import { BonusSection } from '@/components/sections/BonusSection';
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
@@ -13,9 +12,7 @@ import { FAQSection } from '@/components/sections/FAQSection';
 export default function Home() {
   return (
     <main className="relative bg-white min-h-screen">
-      <PromoBanner />
       <Hero />
-      <Marquee />
       <Markets />
       <BonusSection />
       <WhyChooseUs />

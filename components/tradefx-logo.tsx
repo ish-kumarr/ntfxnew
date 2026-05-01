@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function TradeFXLogo({ className = "w-auto h-12" }: { className?: string }) {
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} suppressHydrationWarning>
       <Image
         src="/new tradefx logo wide rectangle.png"
         alt="TradeFX Logo"
@@ -17,7 +17,7 @@ export function TradeFXLogo({ className = "w-auto h-12" }: { className?: string 
 
 export function TradeFXIcon({ className = "w-12 h-12" }: { className?: string }) {
   return (
-    <div className={`relative ${className} transition-opacity duration-300 hover:opacity-90`}>
+    <div className={`relative ${className} transition-opacity duration-300 hover:opacity-90`} suppressHydrationWarning>
       <Image
         src="/icon new tradefx (1000px x 1000px).png"
         alt="TradeFX Icon"

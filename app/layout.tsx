@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Outfit, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { Navbar } from '@/components/Navbar'
+import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { ClientLayout } from '@/components/ClientLayout'
+import Script from 'next/script'
 import './globals.css'
-import Head from 'next/head'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -15,21 +16,8 @@ export const metadata: Metadata = {
   title: 'Trade Global Financial Markets | New Trade FX Services',
   description: 'Access global financial markets with ease. Trade Forex, Gold, Indices, and Digital Assets on a professional-grade platform designed for all traders.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/icon new tradefx (1000px x 1000px).png',
+    apple: '/icon new tradefx (1000px x 1000px).png',
   },
 }
 
@@ -45,10 +33,16 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
           rel="stylesheet"
         />
-        <Navbar />
-        {children}
+        <Header />
+        <ClientLayout>
+          {children}
+        </ClientLayout>
         <Footer />
         <Analytics />
+        <Script
+          src="https://www.callshivai.com/widget2.js?agentId=69de1c55f5b6ee59515bec67&userId=69dc86ab6b66fa0cc93fb3f9"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   )

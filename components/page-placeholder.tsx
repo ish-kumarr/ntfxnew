@@ -13,7 +13,7 @@ interface PagePlaceholderProps {
 
 export function PagePlaceholder({
   title,
-  subtitle = "TradeFX Services",
+  subtitle = "New TradeFX Services",
   message = "Designing the future of professional trading.",
   devNotes = "Core ecosystem component pending content implementation."
 }: PagePlaceholderProps) {

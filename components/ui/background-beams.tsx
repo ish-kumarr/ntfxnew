@@ -35,8 +35,8 @@ export const BackgroundBeams = React.memo(
             "M-198 -397C-198 -397 -130 8 334 135C798 262 866 667 866 667"
         ];
 
-        // Increased density for more prominent atmospheric effect
-        const paths = [...basePaths, ...basePaths, ...basePaths, ...basePaths, ...basePaths, ...basePaths];
+        // Reduced density for better performance (2x instead of 6x)
+        const paths = [...basePaths, ...basePaths];
         return (
             <div
                 className={cn(

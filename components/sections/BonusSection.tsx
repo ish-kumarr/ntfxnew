@@ -50,6 +50,8 @@ export function BonusSection() {
                                 <Sparkles className="text-[#22C55E]" size={14} />
                                 <span className="text-[10px] font-black uppercase tracking-widest text-[#22C55E]">Available Bonuses</span>
                             </div>
+                            
+                            
                             <h2 className="text-6xl font-black text-white tracking-tight leading-[1.1]">
                                 Elevate Your <br />
                                 <span className="text-[#2E62FF]">Trading Potential</span>

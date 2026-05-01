@@ -119,7 +119,7 @@ export function FAQSection() {
                         transition={{ delay: 0.2 }}
                         className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto font-medium"
                     >
-                        Everything you need to know about TradeFX professional services. Can't find an answer? Our support team is here to help.
+                        Everything you need to know about New TradeFX professional services. Can't find an answer? Our support team is here to help.
                     </motion.p>
                 </div>
 

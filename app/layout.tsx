@@ -13,7 +13,7 @@ const _outfit = Outfit({ subsets: ["latin"], variable: '--font-outfit' });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-playfair', style: ['normal', 'italic'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tradefxservices.com'),
+  metadataBase: new URL('https://ntfxnew.vercel.app'),
   title: {
     default: 'Trade Global Financial Markets | New Trade FX Services',
     template: '%s | New Trade FX Services',
@@ -24,17 +24,25 @@ export const metadata: Metadata = {
     apple: '/icon new tradefx (1000px x 1000px).png',
   },
   openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://ntfxnew.vercel.app',
+    siteName: 'New Trade FX Services',
+    title: 'Trade Global Financial Markets | New Trade FX Services',
+    description: 'Access global financial markets with ease. Trade Forex, Gold, Indices, and Digital Assets on a professional-grade platform designed for all traders.',
     images: [
       {
         url: '/site.png',
         width: 1200,
-        height: 630,
+        height: 627,
         alt: 'New Trade FX Services - Professional Trading Platform',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'Trade Global Financial Markets | New Trade FX Services',
+    description: 'Access global financial markets with ease. Trade Forex, Gold, Indices, and Digital Assets on a professional-grade platform designed for all traders.',
     images: ['/site.png'],
   },
 }

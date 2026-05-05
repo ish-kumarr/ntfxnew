@@ -17,6 +17,7 @@ import { DownloadSection } from '@/components/sections/DownloadSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { PremiumMarquee } from '@/components/sections/PremiumMarquee';
 import { ShaderAnimation } from '@/components/ui/shader-animation';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 
 
@@ -31,6 +32,7 @@ const paymentMethods = [
 ];
 
 export default function FundingPage() {
+    const isMobile = useIsMobile();
     return (
         <main className="relative min-h-screen bg-white overflow-x-hidden">
 
@@ -62,10 +64,10 @@ export default function FundingPage() {
                     <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
                         {/* Left: Content & Typography */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            transition={{ duration: isMobile ? 0.4 : 0.6 }}
                             className="flex-1 max-w-xl"
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2E62FF]/5 border border-[#2E62FF]/10 mb-8">
@@ -116,10 +118,10 @@ export default function FundingPage() {
 
                         {/* Right: Wallet Deposit Image */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            transition={{ duration: isMobile ? 0.4 : 0.6, delay: isMobile ? 0.1 : 0.2 }}
                             className="flex-1 w-full max-w-2xl relative"
                         >
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#2E62FF]/[0.03] rounded-full blur-[80px] -z-10" />
@@ -143,10 +145,10 @@ export default function FundingPage() {
                         
                         {/* Left: Withdrawal Image */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            transition={{ duration: isMobile ? 0.4 : 0.6, delay: isMobile ? 0.1 : 0.2 }}
                             className="flex-1 w-full max-w-2xl relative"
                         >
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#2E62FF]/[0.03] rounded-full blur-[80px] -z-10" />
@@ -160,10 +162,10 @@ export default function FundingPage() {
 
                         {/* Right: Content & Typography */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            transition={{ duration: isMobile ? 0.4 : 0.6 }}
                             className="flex-1 max-w-xl"
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2E62FF]/5 border border-[#2E62FF]/10 mb-8">
@@ -223,9 +225,9 @@ export default function FundingPage() {
                 <div className="max-w-[1400px] mx-auto px-6">
                     <div className="text-center mb-16">
                         <motion.div
-                            initial={{ opacity: 0, y: 15 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 15 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 mb-6">
                                 <CreditCard size={12} className="text-neutral-500" />
@@ -245,10 +247,10 @@ export default function FundingPage() {
                         {paymentMethods.map((method, idx) => (
                             <motion.div
                                 key={idx}
-                                initial={{ opacity: 0, y: 15 }}
+                                initial={{ opacity: 0, y: isMobile ? 8 : 15 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.05 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.05 }}
                                 className="group relative flex flex-col items-center justify-center gap-4 py-8 px-4 rounded-2xl border border-neutral-100 bg-white hover:shadow-2xl hover:shadow-[#2E62FF]/5 hover:-translate-y-1 transition-all duration-500"
                             >
                                 <div className="h-8 w-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
@@ -260,9 +262,9 @@ export default function FundingPage() {
 
                     {/* Info Table */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                         className="rounded-3xl border border-neutral-100 overflow-hidden shadow-sm bg-white"
                     >
                         <div className="overflow-x-auto">
@@ -333,7 +335,7 @@ export default function FundingPage() {
 
                 <div className="max-w-[1400px] w-full mx-auto px-6 relative z-20">
                     <div className="text-center mb-16">
-                         <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                         <motion.div initial={{ opacity: 0, y: isMobile ? 10 : 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.05] font-black tracking-tighter mb-6 text-white flex items-center justify-center flex-wrap gap-x-3">
                                 Client Fund 
                                 <span className="text-[#2E62FF] inline-flex items-center gap-1">
@@ -368,10 +370,10 @@ export default function FundingPage() {
                         ].map((card, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : i * 0.1 }}
                                 className="group relative p-8 rounded-3xl bg-gradient-to-b from-white/[0.08] to-transparent backdrop-blur-xl border border-white/[0.08] hover:border-white/[0.15] hover:-translate-y-1 transition-all duration-500 overflow-hidden"
                             >
                                 {/* Inner Hover Glow */}
@@ -400,9 +402,9 @@ export default function FundingPage() {
                 <div className="max-w-[1400px] mx-auto px-6">
                     <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                             className="flex-1 max-w-xl"
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 mb-8">
@@ -417,10 +419,10 @@ export default function FundingPage() {
                             </p>
                         </motion.div>
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            transition={{ delay: isMobile ? 0 : 0.2 }}
                             className="flex-1 max-w-lg w-full"
                         >
                             <div className="grid grid-cols-1 gap-4">
@@ -431,10 +433,10 @@ export default function FundingPage() {
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, x: 20 }}
+                                        initial={{ opacity: 0, x: isMobile ? 10 : 20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 0.3 + i * 0.1 }}
+                                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                        transition={{ delay: isMobile ? 0 : 0.3 + i * 0.1 }}
                                         className="flex items-start gap-5 p-6 rounded-2xl bg-white border border-neutral-100 hover:shadow-lg hover:shadow-[#2E62FF]/[0.03] transition-shadow duration-500"
                                     >
                                         <div className="w-10 h-10 rounded-xl bg-[#2E62FF]/5 text-[#2E62FF] flex items-center justify-center flex-shrink-0">

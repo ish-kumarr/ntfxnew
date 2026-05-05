@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
@@ -33,6 +33,15 @@ const features = [
 ];
 
 export function WhyChooseUs() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     return (
         <section className="relative w-full bg-[#030712] py-24 lg:py-32 overflow-x-clip antialiased">
             {/* Background Glows */}
@@ -62,16 +71,16 @@ export function WhyChooseUs() {
                 </motion.div>
 
                 {/* Features Grid */}
-                <div className="flex flex-col md:grid md:grid-cols-2 gap-6 lg:gap-8 pb-[10vh] md:pb-0 pt-4">
+                <div className="flex flex-col md:grid md:grid-cols-2 gap-8 lg:gap-8 pb-[20vh] md:pb-0 pt-4">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            transition={{ duration: 0.6, delay: isMobile ? 0 : index * 0.1 }}
                             className="group relative flex flex-col bg-[#0A0F1C] border border-white/5 rounded-3xl overflow-hidden hover:border-[#2E62FF]/30 transition-all duration-500 md:relative sticky shadow-[0_-15px_40px_-10px_rgba(0,0,0,0.8)] md:shadow-none top-[var(--stick-offset)] md:top-auto"
-                            style={{ '--stick-offset': `calc(100px + ${index * 32}px)` } as React.CSSProperties}
+                            style={{ '--stick-offset': `calc(80px + ${index * 24}px)` } as React.CSSProperties}
                         >
                             {/* Hover Inner Glow */}
                             <div className="absolute inset-0 bg-gradient-to-br from-[#2E62FF]/0 to-[#2E62FF]/0 group-hover:from-[#2E62FF]/5 group-hover:to-transparent transition-all duration-500 pointer-events-none"></div>
@@ -111,7 +120,7 @@ export function WhyChooseUs() {
             </div>
             
             {/* Edge Gradients */}
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#030712] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-[#030712] to-transparent z-10 pointer-events-none"></div>
             <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#030712] to-transparent z-10 pointer-events-none"></div>
         </section>
     );

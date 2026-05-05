@@ -104,93 +104,95 @@ export function TradingPackages() {
                 </div>
 
                 {/* Pricing Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-start">
-                    {packages.map((pkg, index) => (
-                        <motion.div
-                            key={pkg.name}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className={`group relative flex flex-col rounded-[2.5rem] p-8 transition-all duration-500 bg-white border border-slate-200/50 shadow-sm hover:shadow-2xl hover:shadow-blue-500/5 hover:-translate-y-2`}
-                        >
-                            {/* Pro Card Magical Aura */}
-                            {pkg.popular && (
-                                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[2.5rem]">
-                                    {/* Multi-layered atmospheric aura */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] bg-[radial-gradient(circle,rgba(46,98,255,0.12)_0%,transparent_60%)] opacity-80" />
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,rgba(46,98,255,0.08)_0%,transparent_50%)] opacity-100" />
+                <div className="relative -mx-6 sm:mx-0 px-6 sm:px-0">
+                    <div className="flex lg:grid lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible hide-scrollbar pb-8 snap-x snap-mandatory lg:snap-none">
+                        {packages.map((pkg, index) => (
+                            <motion.div
+                                key={pkg.name}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                className={`group relative flex flex-col rounded-[2.5rem] p-8 transition-all duration-500 bg-white border border-slate-200/50 shadow-sm hover:shadow-2xl hover:shadow-blue-500/5 lg:hover:-translate-y-2 flex-shrink-0 w-[85vw] sm:w-[320px] lg:w-auto snap-center`}
+                            >
+                                {/* Pro Card Magical Aura */}
+                                {pkg.popular && (
+                                    <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[2.5rem]">
+                                        {/* Multi-layered atmospheric aura */}
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] bg-[radial-gradient(circle,rgba(46,98,255,0.12)_0%,transparent_60%)] opacity-80" />
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,rgba(46,98,255,0.08)_0%,transparent_50%)] opacity-100" />
+                                        
+                                        {/* Animated subtle light sweep */}
+                                        <motion.div 
+                                            animate={{ x: ['-200%', '200%'] }}
+                                            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/10 to-transparent skew-x-12 pointer-events-none"
+                                        />
+                                    </div>
+                                )}
+
+                                {/* Popular Badge */}
+                                {pkg.popular && (
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                                        <div className="bg-[#2E62FF] text-white text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full shadow-lg shadow-blue-500/20">
+                                            Popular
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Header */}
+                                <div className="mb-8 relative z-10">
+                                    <span className="text-[10px] font-bold text-[#2E62FF] uppercase tracking-[0.2em] mb-4 block opacity-80">
+                                        {pkg.target}
+                                    </span>
+                                    <h3 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">{pkg.name}</h3>
+                                    <p className={`text-sm text-slate-500 font-medium leading-relaxed h-10 opacity-70`}>
+                                        {pkg.tagline}
+                                    </p>
                                     
-                                    {/* Animated subtle light sweep */}
-                                    <motion.div 
-                                        animate={{ x: ['-200%', '200%'] }}
-                                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/10 to-transparent skew-x-12 pointer-events-none"
-                                    />
-                                </div>
-                            )}
-
-                            {/* Popular Badge */}
-                            {pkg.popular && (
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                                    <div className="bg-[#2E62FF] text-white text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full shadow-lg shadow-blue-500/20">
-                                        Popular
+                                    <div className="mt-10 flex flex-col gap-1.5">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Starting from</span>
+                                        <div className="flex items-baseline gap-1.5">
+                                            <span className="text-4xl font-black text-slate-900 tracking-tighter">{pkg.deposit}</span>
+                                            <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">USD</span>
+                                        </div>
                                     </div>
                                 </div>
-                            )}
 
-                            {/* Header */}
-                            <div className="mb-8 relative z-10">
-                                <span className="text-[10px] font-bold text-[#2E62FF] uppercase tracking-[0.2em] mb-4 block opacity-80">
-                                    {pkg.target}
-                                </span>
-                                <h3 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">{pkg.name}</h3>
-                                <p className={`text-sm text-slate-500 font-medium leading-relaxed h-10 opacity-70`}>
-                                    {pkg.tagline}
-                                </p>
-                                
-                                <div className="mt-10 flex flex-col gap-1.5">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Starting from</span>
-                                    <div className="flex items-baseline gap-1.5">
-                                        <span className="text-4xl font-black text-slate-900 tracking-tighter">{pkg.deposit}</span>
-                                        <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">USD</span>
-                                    </div>
+                                {/* Features List */}
+                                <div className="flex-1 flex flex-col mb-10 relative z-10">
+                                    {pkg.features.map((feature, fIndex) => (
+                                        <div key={fIndex} className={`flex items-center justify-between py-4 border-b border-slate-50/80 last:border-0`}>
+                                            <span className={`text-[11px] font-bold uppercase tracking-widest ${feature.active ? 'text-slate-400' : 'text-slate-200'}`}>
+                                                {feature.name}
+                                            </span>
+                                            <span className={`text-sm font-bold ${
+                                                feature.active ? 'text-slate-900' : 'text-slate-200'
+                                            } tracking-tight`}>
+                                                {feature.value}
+                                            </span>
+                                        </div>
+                                    ))}
                                 </div>
-                            </div>
 
-                            {/* Features List */}
-                            <div className="flex-1 flex flex-col mb-10 relative z-10">
-                                {pkg.features.map((feature, fIndex) => (
-                                    <div key={fIndex} className={`flex items-center justify-between py-4 border-b border-slate-50/80 last:border-0`}>
-                                        <span className={`text-[11px] font-bold uppercase tracking-widest ${feature.active ? 'text-slate-400' : 'text-slate-200'}`}>
-                                            {feature.name}
-                                        </span>
-                                        <span className={`text-sm font-bold ${
-                                            feature.active ? 'text-slate-900' : 'text-slate-200'
-                                        } tracking-tight`}>
-                                            {feature.value}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
+                                {/* CTA Action */}
+                                <div className="mt-auto relative z-10">
+                                    <button className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-300 ${
+                                        pkg.popular
+                                            ? 'bg-[#2E62FF] text-white hover:bg-[#1e4cd1] shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5'
+                                            : 'bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 hover:border-slate-300'
+                                    }`}>
+                                        Open {pkg.name}
+                                    </button>
+                                </div>
 
-                            {/* CTA Action */}
-                            <div className="mt-auto relative z-10">
-                                <button className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-300 ${
-                                    pkg.popular
-                                        ? 'bg-[#2E62FF] text-white hover:bg-[#1e4cd1] shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5'
-                                        : 'bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 hover:border-slate-300'
-                                }`}>
-                                    Open {pkg.name}
-                                </button>
-                            </div>
-
-                            {/* Card Accent Glow */}
-                            {pkg.popular && (
-                                <div className="absolute inset-0 border-2 border-blue-500/10 rounded-[2.5rem] pointer-events-none group-hover:border-blue-500/20 transition-colors" />
-                            )}
-                        </motion.div>
-                    ))}
+                                {/* Card Accent Glow */}
+                                {pkg.popular && (
+                                    <div className="absolute inset-0 border-2 border-blue-500/10 rounded-[2.5rem] pointer-events-none group-hover:border-blue-500/20 transition-colors" />
+                                )}
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

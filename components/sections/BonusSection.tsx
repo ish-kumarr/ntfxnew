@@ -160,8 +160,10 @@ export function BonusSection() {
                 </motion.div>
             </div>
 
-            {/* Global Background Animation */}
-            <BackgroundBeams className="opacity-100" />
+            {/* Global Background Animation - Optimized for mobile positioning */}
+            <div className="absolute inset-x-0 top-0 h-[45%] lg:h-full pointer-events-none overflow-hidden">
+                <BackgroundBeams className="opacity-100" />
+            </div>
 
             {/* Gradient Masking */}
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#030712] to-transparent z-10 pointer-events-none"></div>

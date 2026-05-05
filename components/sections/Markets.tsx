@@ -184,19 +184,23 @@ export function Markets() {
                 </motion.div>
 
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-16 md:mb-20">
-                    {markets.map((market, index) => (
-                        <button
-                            key={market.id}
-                            onClick={() => switchTab(index)}
-                            className={`relative px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-500 whitespace-nowrap ${activeTab === index
-                                ? 'bg-[#2E62FF] text-white'
-                                : 'bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A]'
-                                }`}
-                        >
-                            {market.label}
-                        </button>
-                    ))}
+                <div className="relative -mx-5 sm:mx-0 px-5 sm:px-0 mb-16 md:mb-20">
+                    <div className="flex flex-nowrap overflow-x-auto gap-2 sm:gap-2.5 hide-scrollbar pb-4">
+                        {markets.map((market, index) => (
+                            <button
+                                key={market.id}
+                                onClick={() => switchTab(index)}
+                                className={`relative px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-500 whitespace-nowrap flex-shrink-0 ${activeTab === index
+                                    ? 'bg-[#2E62FF] text-white shadow-lg shadow-blue-500/20'
+                                    : 'bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A]'
+                                    }`}
+                            >
+                                {market.label}
+                            </button>
+                        ))}
+                    </div>
+                    {/* Shadow indicators for scrollable content */}
+                    <div className="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none lg:hidden" />
                 </div>
 
                 {/* Content — single CSS transition, no AnimatePresence */}

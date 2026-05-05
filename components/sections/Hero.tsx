@@ -8,23 +8,14 @@ export function Hero() {
         <section className="relative min-h-screen w-full overflow-hidden flex items-end">
             {/* Cinematic Video Background */}
             <div className="absolute inset-0 z-0">
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                >
-                    <source
-                        src="/sample desktop bg.mp4"
-                        type="video/mp4"
-                    />
+                <picture className="w-full h-full">
+                    <source media="(max-width: 768px)" srcSet="/assets/hero/landing-mobile.png" />
                     <img
-                        src="/hero-bg.png"
+                        src="/assets/hero/landing.png"
                         alt="TradeFX Trading Background"
                         className="w-full h-full object-cover"
                     />
-                </video>
+                </picture>
                 <div className="absolute inset-0 bg-black/30" />
             </div>
 

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { TradeFXLogo } from './tradefx-logo';
 import { cn } from '@/lib/utils';
 import { ChevronDown, ExternalLink, Globe, LayoutGrid, Menu, TrendingUp, Users, X, Lock } from 'lucide-react';
@@ -60,6 +62,7 @@ const products = [
 ];
 
 export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
+    const pathname = usePathname();
     const [activeItem, setActiveItem] = useState<number | null>(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -80,6 +83,23 @@ export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
         window.dispatchEvent(new CustomEvent('mobile-menu-toggled', { detail: { isOpen: isMobileMenuOpen } }));
     }, [isMobileMenuOpen]);
 
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+        setActiveItem(null);
+    }, [pathname]);
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMobileMenuOpen]);
+
     return (
         <TooltipProvider>
         <motion.div 
@@ -91,7 +111,8 @@ export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
                 <nav 
                     className={cn(
                         "bg-white border border-white/20 px-6 py-2.5 rounded-full pointer-events-auto flex items-center justify-between lg:justify-start w-full lg:w-auto lg:gap-12 transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.15)]",
-                        (hasMounted && isScrolled) && "bg-white border-primary/5 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+                        (hasMounted && isScrolled) && "bg-white border-primary/5 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.1)]",
+                        isMobileMenuOpen && "opacity-0 pointer-events-none"
                     )}
                     suppressHydrationWarning
                 >
@@ -171,6 +192,7 @@ export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
                                                             <Link
                                                                 key={item.href}
                                                                 href={item.href}
+                                                                onClick={() => setActiveItem(null)}
                                                                 className="px-4 py-3 rounded-2xl text-[13px] font-bold hover:bg-primary/5 hover:text-primary transition-all flex items-center justify-between group/link"
                                                             >
                                                                 {item.name}
@@ -224,29 +246,27 @@ export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
                     </div>
                 </nav>
             </div>
-
-            {/* Reimagined Mobile Menu Overlay - Adjusted for Banner height */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
+            
+            {hasMounted && typeof document !== 'undefined' && createPortal(
+                <AnimatePresence mode="wait">
+                    {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={cn(
-                            "fixed inset-x-0 bottom-0 bg-white z-[90] lg:hidden pointer-events-auto flex flex-col transition-all duration-500",
-                            bannerVisible ? "top-[112px]" : "top-0"
-                        )}
+                        initial={{ y: "-100%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "-100%" }}
+                        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                        className="fixed inset-0 bg-white z-[9999] lg:hidden pointer-events-auto flex flex-col"
                     >
                         {/* Dedicated Mobile Header inside Menu */}
-                        <div className="flex items-center justify-between px-8 pt-8 pb-4 bg-white/95 backdrop-blur-xl sticky top-0 z-[100]">
+                        <div className="flex items-center justify-between px-6 py-6 bg-white/95 backdrop-blur-xl sticky top-0 z-[100] border-b border-slate-100">
                             <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-                                <TradeFXLogo className="h-12 w-auto" />
+                                <TradeFXLogo className="h-10 w-auto" />
                             </Link>
                             <button
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="p-3 rounded-full bg-primary/5 text-primary active:scale-90 transition-transform shadow-sm"
+                                className="p-2.5 rounded-full bg-primary/5 text-primary active:scale-90 transition-transform shadow-sm"
                             >
-                                <X className="w-8 h-8" />
+                                <X className="w-7 h-7" />
                             </button>
                         </div>
 
@@ -255,7 +275,7 @@ export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
                             {/* Background elements */}
                             <div className="absolute top-0 right-0 w-[80vw] h-[80vw] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 -z-10"></div>
 
-                            <div className="space-y-10 pt-6 pb-48">
+                            <div className="space-y-10 pt-6 pb-[280px]">
                                 {products.map((product) => (
                                     <div key={product.title} className="space-y-4">
                                         <div
@@ -346,7 +366,9 @@ export function Navbar({ bannerVisible = true }: { bannerVisible?: boolean }) {
                         </div>
                     </motion.div>
                 )}
-            </AnimatePresence>
+            </AnimatePresence>,
+            document.body
+        )}
         </motion.div>
         </TooltipProvider>
     );

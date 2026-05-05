@@ -10,11 +10,13 @@ import Silk from '@/components/ui/Silk';
 import { AuroraText } from '@/components/ui/aurora-text';
 import Link from 'next/link';
 import { useOutsideClick } from '@/hooks/use-outside-click';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function ForexPage() {
     const [active, setActive] = React.useState<(typeof marketCards)[number] | null>(null);
     const id = React.useId();
     const ref = React.useRef<HTMLDivElement>(null);
+    const isMobile = useIsMobile();
 
     React.useEffect(() => {
         function onKeyDown(event: KeyboardEvent) {
@@ -65,9 +67,9 @@ export default function ForexPage() {
                         {/* Left Column — Content */}
                         <div className="text-center lg:text-left">
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8 }}
+                                transition={{ duration: isMobile ? 0.5 : 0.8 }}
                                 className="flex flex-col items-center lg:items-start"
                             >
                                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2E62FF]/10 border border-[#2E62FF]/20 mb-5 md:mb-6 backdrop-blur-md">
@@ -167,10 +169,10 @@ export default function ForexPage() {
                         
                         {/* Left Column — The Pitch */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true, margin: isMobile ? "-50px" : "0px" }}
+                            transition={{ duration: isMobile ? 0.5 : 0.8 }}
                             className="lg:sticky lg:top-32"
                         >
                             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-md">
@@ -241,10 +243,10 @@ export default function ForexPage() {
                             ].map((feature, idx) => (
                                 <motion.div
                                     key={feature.num}
-                                    initial={{ opacity: 0, y: 25 }}
+                                    initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1, duration: 0.6 }}
+                                    viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                    transition={{ delay: isMobile ? 0 : idx * 0.1, duration: isMobile ? 0.4 : 0.6 }}
                                     className="group p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/[0.06] hover:border-[#2E62FF]/20 hover:bg-[#2E62FF]/[0.04] transition-all duration-500"
                                 >
                                     <div className="flex items-center justify-between mb-5">
@@ -311,11 +313,11 @@ export default function ForexPage() {
                                 </motion.button>
                                 <motion.div
                                     key={`modal-${active.title}`}
-                                    initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-                                    exit={{ opacity: 0, scale: 0.95, y: 10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
+                                    initial={{ opacity: 0, scale: isMobile ? 0.98 : 0.92, y: isMobile ? 50 : 20 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.35, ease: [0.22, 1, 0.36, 1] } }}
+                                    exit={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 30 : 10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
                                     ref={ref}
-                                    className="w-full max-w-[1140px] max-h-[72vh] bg-[#0c1a2e] rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col md:flex-row"
+                                    className="w-full max-w-[1140px] max-h-[85vh] md:max-h-[72vh] bg-[#0c1a2e] rounded-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col md:flex-row"
                                 >
                                     {/* LEFT — Dark Chart Panel */}
                                     <div className="w-full md:w-[55%] flex flex-col flex-shrink-0">
@@ -410,10 +412,10 @@ export default function ForexPage() {
                             <motion.div
                                 key={card.title}
                                 onClick={() => { setActive(card); setSelectedPair(card.pairs[0]); }}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                                viewport={{ once: true, margin: isMobile ? "-20px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1, duration: isMobile ? 0.4 : 0.5 }}
                                 className="group relative bg-white rounded-2xl p-8 md:p-10 cursor-pointer border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-xl hover:shadow-[#2E62FF]/5 transition-all duration-500"
                             >
                                 {/* Top accent line */}
@@ -470,9 +472,9 @@ export default function ForexPage() {
             </section>
 
             {/* Investment & Data Section */}
-            <section className="py-32 bg-white overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="relative rounded-[4rem] bg-[#030712] p-12 md:p-24 overflow-hidden">
+            <section className="py-20 md:py-32 bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                    <div className="relative rounded-[2.5rem] md:rounded-[4rem] bg-[#030712] p-8 md:p-24 overflow-hidden">
                         <div className="absolute inset-0 z-0">
                             <Silk speed={0.2} scale={1.2} color="#111827" />
                         </div>
@@ -485,21 +487,21 @@ export default function ForexPage() {
                                 <p className="text-lg text-white/50 font-medium leading-relaxed mb-12">
                                     Trade CFDs on a diverse range of the world's most popular currency pairs. The Forex market is the most liquid financial market, with a daily turnover exceeding $7.5 trillion.
                                 </p>
-                                <div className="grid grid-cols-2 gap-10">
-                                    <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10">
-                                        <div className="text-4xl font-black text-white mb-2">$7.5T+</div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10">
+                                    <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 border border-white/10">
+                                        <div className="text-3xl md:text-4xl font-black text-white mb-2">$7.5T+</div>
                                         <div className="text-[10px] font-black text-[#2E62FF] uppercase tracking-[0.2em]">Daily Turnover</div>
                                     </div>
-                                    <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10">
-                                        <div className="text-4xl font-black text-white mb-2">24/5</div>
+                                    <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 border border-white/10">
+                                        <div className="text-3xl md:text-4xl font-black text-white mb-2">24/5</div>
                                         <div className="text-[10px] font-black text-[#2E62FF] uppercase tracking-[0.2em]">Market Access</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="relative">
+                            <div className="relative mt-10 lg:mt-0">
                                 <img 
                                     src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
-                                    className="w-full h-[400px] object-cover rounded-[3rem] opacity-80"
+                                    className="w-full h-[250px] md:h-[400px] object-cover rounded-[2rem] md:rounded-[3rem] opacity-80"
                                     alt="Market Data"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#030712] to-transparent" />
@@ -533,11 +535,11 @@ export default function ForexPage() {
                         ].map((feature, i) => (
                             <motion.div
                                 key={feature.title}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group p-10 rounded-[3rem] border border-neutral-100 hover:border-[#2E62FF]/20 hover:bg-blue-50/30 transition-all duration-500"
+                                viewport={{ once: true, margin: isMobile ? "-20px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : i * 0.1, duration: isMobile ? 0.4 : 0.6 }}
+                                className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-neutral-100 hover:border-[#2E62FF]/20 hover:bg-blue-50/30 transition-all duration-500"
                             >
                                 <div className="w-14 h-14 rounded-2xl bg-neutral-50 flex items-center justify-center text-neutral-400 group-hover:bg-[#2E62FF] group-hover:text-white transition-all duration-500 mb-8">
                                     {feature.icon}
@@ -551,9 +553,9 @@ export default function ForexPage() {
             </section>
 
             {/* CTA Journey Section */}
-            <section className="py-32 bg-white overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="relative rounded-[4rem] bg-gradient-to-br from-[#030712] via-[#0a1628] to-[#0c1a35] p-12 md:p-24 overflow-hidden">
+            <section className="py-20 md:py-32 bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                    <div className="relative rounded-[2.5rem] md:rounded-[4rem] bg-gradient-to-br from-[#030712] via-[#0a1628] to-[#0c1a35] p-8 md:p-24 overflow-hidden">
                         {/* Decorative Background Elements */}
                         <div className="absolute inset-0 overflow-hidden">
                             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2E62FF]/10 rounded-full blur-[150px] pointer-events-none" />
@@ -565,12 +567,12 @@ export default function ForexPage() {
                         
                         <div className="relative z-10">
                             {/* Top Content */}
-                            <div className="text-center max-w-3xl mx-auto mb-16">
+                            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.7 }}
+                                    transition={{ duration: isMobile ? 0.5 : 0.7 }}
                                 >
                                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2E62FF]/10 border border-[#2E62FF]/20 mb-8 backdrop-blur-md">
                                         <Zap size={10} className="fill-[#2E62FF] text-[#2E62FF]" />
@@ -620,11 +622,11 @@ export default function ForexPage() {
                                 ].map((stat, i) => (
                                     <motion.div
                                         key={stat.label}
-                                        initial={{ opacity: 0, y: 15 }}
+                                        initial={{ opacity: 0, y: isMobile ? 10 : 15 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
-                                        className="p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm text-center hover:bg-white/[0.06] hover:border-[#2E62FF]/20 transition-all duration-500"
+                                        transition={{ delay: isMobile ? i * 0.05 : 0.3 + i * 0.1, duration: isMobile ? 0.4 : 0.5 }}
+                                        className="p-4 md:p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm text-center hover:bg-white/[0.06] hover:border-[#2E62FF]/20 transition-all duration-500"
                                     >
                                         <div className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-1">
                                             {stat.value}<span className="text-sm font-bold text-[#2E62FF]">{stat.unit}</span>

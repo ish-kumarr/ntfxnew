@@ -13,19 +13,13 @@ import { AuroraText } from '@/components/ui/aurora-text';
 import { DownloadSection } from '@/components/sections/DownloadSection';
 import { PremiumMarquee } from '@/components/sections/PremiumMarquee';
 import { FAQSection } from '@/components/sections/FAQSection';
+import { PlatformEfficiencyFeatures } from '@/components/ui/features-9';
+import { CinematicHero } from '@/components/ui/cinematic-landing-hero';
+import { CtaCard } from '@/components/ui/cta-card';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function PlatformsPage() {
-    const [activeFeatureTab, setActiveFeatureTab] = useState(0);
-
-    const platformFeatures = [
-        { title: 'Advanced Charting', icon: <BarChart3 size={24}/>, desc: 'Analyze market trends with comprehensive and detailed multi-timeframe charting tools. Over 80+ pre-built technical indicators directly integrated into your charts.' },
-        { title: 'Market Depth', icon: <Layers size={24}/>, desc: 'Access real-time Level 2 market depth information to gauge liquidity, evaluate order book pressure, and make significantly better trading decisions.' },
-        { title: 'Multi-Device', icon: <Monitor size={24}/>, desc: 'Trade seamlessly across desktop, web terminal, and mobile devices. Your accounts, preferences, and open positions are synced instantaneously.' },
-        { title: 'Algorithmic Trading', icon: <Code size={24}/>, desc: 'Implement automated trading strategies with Expert Advisors (EAs). Utilize the integrated MQL5 environment for institutional-grade algorithmic programming.' },
-        { title: 'Technical Indicators', icon: <Activity size={24}/>, desc: 'Deploy an extensive library of technical indicators and graphical objects to enhance your market analysis and pinpoint perfect entry and exit zones.' },
-        { title: 'Economic Calendar', icon: <Calendar size={24}/>, desc: 'Stay informed with an integrated real-time economic calendar. Anticipate market volatility and timely updates directly within the trading terminal.' },
-    ];
-
+    const isMobile = useIsMobile();
     return (
         <main className="relative min-h-screen bg-[#030712] text-white selection:bg-[#2E62FF]/30">
             
@@ -64,9 +58,9 @@ export default function PlatformsPage() {
                         
                         {/* Hero Content */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
+                            initial={{ opacity: 0, x: isMobile ? -15 : -30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            transition={{ duration: isMobile ? 0.5 : 0.8, ease: "easeOut" }}
                             className="max-w-3xl"
                         >
                             {/* Available Badge */}
@@ -131,6 +125,11 @@ export default function PlatformsPage() {
                     </div>
                 </div>
             </section>
+
+            {/* ═══════════════════════════════════════════════════════ */}
+            {/* CINEMATIC PRODUCT REVEAL SECTION                       */}
+            {/* ═══════════════════════════════════════════════════════ */}
+            <CinematicHero />
 
             {/* ═══════════════════════════════════════════════════════ */}
 
@@ -251,10 +250,10 @@ export default function PlatformsPage() {
                         ].map((item, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : i * 0.1 }}
                                 className="group p-8 rounded-[1.5rem] bg-white/[0.01] border border-white/[0.05] hover:bg-white/[0.03] hover:border-[#2E62FF]/20 transition-all duration-300"
                             >
                                 <div className="w-12 h-12 bg-white/[0.03] rounded-xl flex items-center justify-center text-[#2E62FF] mb-6 group-hover:scale-110 group-hover:bg-[#2E62FF]/10 transition-all duration-300">
@@ -269,113 +268,26 @@ export default function PlatformsPage() {
             </section>
 
             {/* ═══════════════════════════════════════════════════════ */}
-            {/* PLATFORM FEATURES - INTERACTIVE TABS STYLE              */}
+            {/* PLATFORM EFFICIENCY FEATURES - LIGHT THEME               */}
             {/* ═══════════════════════════════════════════════════════ */}
-            <section className="relative py-24 md:py-32 bg-[#030712] overflow-hidden leading-relaxed">
-                <div className="max-w-[1400px] mx-auto px-6">
-                    <div className="text-center mb-16 md:mb-24 max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white mb-6">
-                            Boost Your Trading <br />
-                            <AuroraText className="italic font-serif normal-case" style={{ fontFamily: 'var(--font-playfair), serif' }}>Efficiency.</AuroraText>
-                        </h2>
-                        <p className="text-white/40 text-lg">
-                            Explore the features that make New Trade Fx Services the leading choice for MT5 terminal traders worldwide.
-                        </p>
-                    </div>
-
-                    <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-center">
-                        {/* Left: Featured Interactive List */}
-                        <div className="flex flex-col gap-2">
-                            {platformFeatures.map((feat, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setActiveFeatureTab(idx)}
-                                    className={`text-left p-6 rounded-2xl transition-all duration-300 ${
-                                        activeFeatureTab === idx 
-                                        ? 'bg-white/[0.03] border border-white/10 shadow-[0_0_40px_rgba(46,98,255,0.05)]' 
-                                        : 'border border-transparent hover:bg-white/[0.01]'
-                                    }`}
-                                >
-                                    <div className="flex items-start gap-5">
-                                        <div className={`mt-1 font-black text-sm transition-colors ${activeFeatureTab === idx ? 'text-[#2E62FF]' : 'text-white/20'}`}>
-                                            0{idx + 1}
-                                        </div>
-                                        <div>
-                                            <h3 className={`text-xl font-bold mb-2 transition-colors ${activeFeatureTab === idx ? 'text-white' : 'text-white/60'}`}>
-                                                {feat.title}
-                                            </h3>
-                                            <AnimatePresence>
-                                                {activeFeatureTab === idx && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, height: 0 }}
-                                                        animate={{ opacity: 1, height: 'auto' }}
-                                                        exit={{ opacity: 0, height: 0 }}
-                                                        transition={{ duration: 0.3 }}
-                                                        className="overflow-hidden"
-                                                    >
-                                                        <p className="text-white/40 text-sm mt-2">{feat.desc}</p>
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
-                                        </div>
-                                    </div>
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Right: Dynamic Visual Output */}
-                        <div className="relative aspect-square md:aspect-[4/3] rounded-[2rem] bg-gradient-to-tr from-[#0a0f1c] to-[#0f172a] border border-white/10 flex items-center justify-center p-8 overflow-hidden">
-                            {/* Decorative background glow based on active tab */}
-                            <div className="absolute inset-0 bg-[#2E62FF]/5 opacity-50 mix-blend-screen transition-opacity" />
-                            
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={activeFeatureTab}
-                                    initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                                    exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                                    transition={{ duration: 0.4 }}
-                                    className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center p-8"
-                                >
-                                    <div className="w-24 h-24 rounded-full bg-[#2E62FF]/10 flex items-center justify-center text-[#2E62FF] mb-8 shadow-[0_0_60px_rgba(46,98,255,0.3)]">
-                                        {platformFeatures[activeFeatureTab].icon}
-                                    </div>
-                                    <h4 className="text-2xl font-black text-white mb-4">{platformFeatures[activeFeatureTab].title}</h4>
-                                    <p className="text-white/40 font-medium max-w-sm">{platformFeatures[activeFeatureTab].desc}</p>
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <PlatformEfficiencyFeatures />
 
             {/* ═══════════════════════════════════════════════════════ */}
             {/* FINAL CTA                                               */}
             {/* ═══════════════════════════════════════════════════════ */}
-            <section className="relative py-28 md:py-36 bg-[#2E62FF] overflow-hidden text-center flex flex-col items-center">
-                <div className="absolute inset-0 bg-[url('/backgrounds/stripesbg.png')] opacity-10 mix-blend-overlay"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/10 rounded-full blur-[120px] pointer-events-none" />
-                
-                <div className="relative z-10 max-w-4xl mx-auto px-6">
-                    <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-tight mb-8">
-                        Take the Next Step In <br /> Your Trading Journey.
-                    </h2>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link 
-                            href="https://dashboard.tradefxservices.com/register"
-                            target="_blank" 
-                            className="bg-white text-[#2E62FF] px-8 py-4 rounded-xl font-black uppercase tracking-[0.2em] text-xs shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2"
-                        >
-                            Open Live Account <ChevronRight size={16} />
-                        </Link>
-                        <Link 
-                            href="https://dashboard.tradefxservices.com/"
-                            target="_blank" 
-                            className="bg-transparent border border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-black uppercase tracking-[0.2em] text-xs transition-all flex items-center justify-center gap-2"
-                        >
-                            Client Login
-                        </Link>
-                    </div>
+            {/* ═══════════════════════════════════════════════════════ */}
+            {/* FINAL CTA                                               */}
+            {/* ═══════════════════════════════════════════════════════ */}
+            <section className="relative py-24 md:py-32 bg-white px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <CtaCard 
+                        title="Take the Next Step In Your Trading Journey."
+                        description="Join thousands of professional traders experiencing sub-millisecond execution, deep liquidity, and institutional-grade trading infrastructure."
+                        primaryButtonText="Open Live Account"
+                        primaryButtonHref="https://dashboard.tradefxservices.com/register"
+                        secondaryButtonText="Client Login"
+                        secondaryButtonHref="https://dashboard.tradefxservices.com/"
+                    />
                 </div>
             </section>
 

@@ -191,7 +191,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
         {isVisible && (
           <motion.div
             key="page-transition"
-            className="fixed inset-0 z-[9999] pointer-events-auto"
+            className="fixed inset-0 z-[99999] pointer-events-auto"
           >
             {/* ── Top Curtain ── */}
             <motion.div
@@ -292,7 +292,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                       alt="TradeFX"
                       width={120}
                       height={32}
-                      className="object-contain w-auto h-6 md:h-7 opacity-15"
+                      className="object-contain w-auto h-6 md:h-7 opacity-60"
                       priority
                     />
                   </motion.div>

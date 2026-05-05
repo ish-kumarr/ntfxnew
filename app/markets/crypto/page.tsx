@@ -17,12 +17,14 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import Link from 'next/link';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import { TradingViewWidget } from '@/components/TradingViewWidget';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function CryptoPage() {
     const [active, setActive] = React.useState<(typeof marketCards)[number] | null>(null);
     const [mobileTab, setMobileTab] = React.useState<'chart' | 'info'>('chart');
     const [headerOffset, setHeaderOffset] = React.useState(100);
     const ref = React.useRef<HTMLDivElement>(null);
+    const isMobile = useIsMobile();
 
     React.useEffect(() => {
         const updateOffset = () => {
@@ -85,9 +87,9 @@ export default function CryptoPage() {
 
                 <div className="relative z-20 w-full max-w-5xl mx-auto px-6 flex flex-col items-center text-center mt-0">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: isMobile ? 0.5 : 0.8 }}
                         className="flex flex-col items-center"
                     >
                         {/* Tag */}
@@ -110,9 +112,9 @@ export default function CryptoPage() {
 
                     {/* Coins Image */}
                     <motion.div 
-                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.95, y: isMobile ? 10 : 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                        transition={{ duration: isMobile ? 0.8 : 1.2, ease: "easeOut", delay: isMobile ? 0.1 : 0.2 }}
                         className="relative w-full max-w-[550px] md:max-w-[750px] flex items-center justify-center mt-6 md:mt-12 mb-8 z-20"
                     >
                         <img 
@@ -127,9 +129,9 @@ export default function CryptoPage() {
 
                     {/* CTAs */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                        transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.2 : 0.4 }}
                         className="flex flex-col sm:flex-row items-center justify-center gap-5 z-30"
                     >
                         <Link 
@@ -160,9 +162,9 @@ export default function CryptoPage() {
             {/* ═══════════════════════════════════════════════════════ */}
             <section id="crypto-what-is" className="relative py-28 md:py-36 bg-[#030712] text-white overflow-hidden">
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
-                    <div className="max-w-4xl mx-auto text-center mb-20">
+                    <div className="max-w-4xl mx-auto text-center mb-12 md:mb-20">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
@@ -182,10 +184,10 @@ export default function CryptoPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Bull Market */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
+                            initial={{ opacity: 0, x: isMobile ? -15 : -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="group p-10 rounded-[3rem] bg-emerald-500/[0.02] border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-500"
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-emerald-500/[0.02] border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-500"
                         >
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="p-4 rounded-2xl bg-emerald-500/10 text-emerald-500">
@@ -203,10 +205,10 @@ export default function CryptoPage() {
 
                         {/* Bear Market */}
                         <motion.div
-                            initial={{ opacity: 0, x: 30 }}
+                            initial={{ opacity: 0, x: isMobile ? 15 : 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="group p-10 rounded-[3rem] bg-rose-500/[0.02] border border-rose-500/10 hover:border-rose-500/30 transition-all duration-500"
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-rose-500/[0.02] border border-rose-500/10 hover:border-rose-500/30 transition-all duration-500"
                         >
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="p-4 rounded-2xl bg-rose-500/10 text-rose-500">
@@ -237,10 +239,10 @@ export default function CryptoPage() {
                         
                         {/* Left Column — The Pitch */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                            transition={{ duration: isMobile ? 0.5 : 0.8 }}
                             className="lg:sticky lg:top-32"
                         >
                             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2E62FF]/10 border border-[#2E62FF]/20 mb-6 backdrop-blur-md">
@@ -325,10 +327,10 @@ export default function CryptoPage() {
                             ].map((feature, idx) => (
                                 <motion.div
                                     key={feature.num}
-                                    initial={{ opacity: 0, y: 25 }}
+                                    initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1, duration: 0.6 }}
+                                    viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                    transition={{ delay: isMobile ? 0 : idx * 0.1, duration: isMobile ? 0.4 : 0.6 }}
                                     className="group p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/[0.06] hover:border-[#2E62FF]/20 hover:bg-[#2E62FF]/[0.04] transition-all duration-500"
                                 >
                                     <div className="flex items-center justify-between mb-5">
@@ -400,11 +402,11 @@ export default function CryptoPage() {
                         ].map((benefit, idx) => (
                             <motion.div
                                 key={benefit.title}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group p-10 rounded-[3rem] bg-white border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] transition-all duration-500"
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1 }}
+                                className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-white border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] transition-all duration-500"
                             >
                                 <div className="w-14 h-14 rounded-2xl bg-neutral-50 group-hover:bg-[#2E62FF] flex items-center justify-center text-neutral-400 group-hover:text-white transition-all duration-500 mb-8">
                                     {benefit.icon}
@@ -436,10 +438,10 @@ export default function CryptoPage() {
                             <motion.div
                                 key={card.title}
                                 onClick={() => { setActive(card); setSelectedPair(card.pairs[0]); setMobileTab('chart'); }}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1 }}
                                 className="group relative bg-white rounded-[2.5rem] p-8 cursor-pointer border border-neutral-200 hover:border-[#2E62FF]/30 hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] transition-all duration-500"
                             >
                                 <div className="absolute top-0 left-8 right-8 h-0.5 bg-transparent group-hover:bg-[#2E62FF] transition-colors rounded-full" />
@@ -517,11 +519,11 @@ export default function CryptoPage() {
                         ].map((factor, idx) => (
                             <motion.div
                                 key={factor.title}
-                                initial={{ opacity: 0, y: 25 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.08 }}
-                                className="group p-8 rounded-[2rem] bg-white border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-[0_15px_40px_-10px_rgba(46,98,255,0.08)] transition-all duration-500"
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.08 }}
+                                className="group p-6 md:p-8 rounded-[2rem] bg-white border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-[0_15px_40px_-10px_rgba(46,98,255,0.08)] transition-all duration-500"
                             >
                                 <div className="w-12 h-12 rounded-xl bg-neutral-50 group-hover:bg-[#2E62FF] flex items-center justify-center text-neutral-400 group-hover:text-white transition-all duration-500 mb-6">
                                     {factor.icon}
@@ -547,10 +549,10 @@ export default function CryptoPage() {
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
                     {/* Section Header */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: isMobile ? 0.5 : 0.8 }}
                         className="text-center mb-16 md:mb-20"
                     >
                         <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-[#2E62FF]/10 border border-[#2E62FF]/20 mb-8 backdrop-blur-md">
@@ -665,11 +667,11 @@ export default function CryptoPage() {
                         ].map((item, idx) => (
                             <motion.div
                                 key={item.step}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.15 }}
-                                className="relative text-center p-10 rounded-[3rem] bg-neutral-50 border border-neutral-100 group hover:bg-white hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] hover:border-[#2E62FF]/20 transition-all duration-500"
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.15 }}
+                                className="relative text-center p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-neutral-50 border border-neutral-100 group hover:bg-white hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] hover:border-[#2E62FF]/20 transition-all duration-500"
                             >
                                 <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#2E62FF] flex items-center justify-center text-white text-sm font-black shadow-lg shadow-[#2E62FF]/30">
                                     {item.step}
@@ -685,10 +687,10 @@ export default function CryptoPage() {
 
                     {/* CTA Banner */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="relative overflow-hidden rounded-[3rem] bg-[#030712] p-12 md:p-16 text-center"
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                        className="relative overflow-hidden rounded-[2.5rem] md:rounded-[3rem] bg-[#030712] p-8 md:p-16 text-center"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-[#f0f4ff]0/5 via-[#2E62FF]/5 to-purple-500/5 pointer-events-none" />
                         <div className="relative z-10">
@@ -731,10 +733,10 @@ export default function CryptoPage() {
             <section id="crypto-live-data" className="relative py-20 bg-[#030712]">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: isMobile ? 0.4 : 0.6 }}
                         className="mb-12"
                     >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2E62FF]/10 border border-[#2E62FF]/20 mb-4 backdrop-blur-md">
@@ -750,10 +752,10 @@ export default function CryptoPage() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.15 }}
+                        transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0 : 0.15 }}
                         className="grid grid-cols-1 lg:grid-cols-2 gap-6"
                     >
                         {/* Market Overview Widget */}
@@ -831,7 +833,7 @@ export default function CryptoPage() {
             <section id="crypto-seo" className="relative py-28 md:py-36 bg-white overflow-hidden">
                 <div className="relative z-10 max-w-4xl mx-auto px-6">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
@@ -947,11 +949,11 @@ export default function CryptoPage() {
                             <XIcon size={14} className="text-white" />
                         </motion.button>
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-                            exit={{ opacity: 0, scale: 0.95, y: 10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
+                            initial={{ opacity: 0, scale: isMobile ? 0.98 : 0.92, y: isMobile ? 50 : 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.35, ease: [0.22, 1, 0.36, 1] } }}
+                            exit={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 30 : 10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
                             ref={ref}
-                            className="w-full max-w-[1140px] h-full max-h-[850px] bg-[#0c1a2e] rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col md:flex-row pointer-events-auto"
+                            className="w-full max-w-[1140px] h-full max-h-[85vh] md:max-h-[850px] bg-[#0c1a2e] rounded-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col md:flex-row pointer-events-auto"
                         >
                             {/* Mobile Toggle Strip */}
                             <div className="flex md:hidden pt-8 px-6 pb-2 items-center justify-center bg-[#0c1a2e] flex-shrink-0">

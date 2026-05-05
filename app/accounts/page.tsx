@@ -14,6 +14,7 @@ import { BentoCard, BentoGrid } from '@/components/ui/bento-grid';
 import { DownloadSection } from '@/components/sections/DownloadSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { PremiumMarquee } from '@/components/sections/PremiumMarquee';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Beams = dynamic(() => import('@/components/ui/Beams'), { ssr: false });
 const Hyperspeed = dynamic(() => import('@/components/ui/Hyperspeed'), { ssr: false });
@@ -106,6 +107,7 @@ const comparisonRows = [
 
 export default function AccountsPage() {
     const [activeTab, setActiveTab] = useState(0);
+    const isMobile = useIsMobile();
 
     return (
         <main className="relative min-h-screen bg-white overflow-x-hidden">
@@ -137,9 +139,9 @@ export default function AccountsPage() {
                         
                         {/* LEFT — Hero Text Content */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
+                            initial={{ opacity: 0, x: isMobile ? -15 : -30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: isMobile ? 0.5 : 0.8, ease: [0.22, 1, 0.36, 1] }}
                             className="flex-1 max-w-2xl"
                         >
                             <motion.div
@@ -182,9 +184,9 @@ export default function AccountsPage() {
                         {/* RIGHT — Platform Image (Centered on mobile, right-anchored on desktop) */}
                         <div className="flex-1 relative lg:absolute right-auto lg:right-[-8%] top-0 lg:top-1/2 lg:-translate-y-1/2 flex items-center justify-center lg:justify-end z-[5] pointer-events-none select-none mt-8 lg:mt-0">
                             <motion.div
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                                transition={{ duration: isMobile ? 0.6 : 1, ease: [0.22, 1, 0.36, 1], delay: isMobile ? 0.2 : 0.4 }}
                                 className="relative flex justify-center lg:justify-end items-center"
                             >
                                 {/* Glow */}
@@ -213,9 +215,9 @@ export default function AccountsPage() {
                 <div className="relative z-10 max-w-[1380px] mx-auto px-6">
                     {/* Section header */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                         className="text-center mb-16"
                     >
                         <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white mb-4">Choose Your Edge</p>
@@ -228,10 +230,10 @@ export default function AccountsPage() {
                         {accountPlans.map((plan, idx) => (
                             <motion.div
                                 key={plan.id}
-                                initial={{ opacity: 0, y: 35 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 35 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1, duration: isMobile ? 0.4 : 0.6, ease: [0.22, 1, 0.36, 1] }}
                                 className={`group relative flex flex-col rounded-[1.75rem] transition-all duration-500 overflow-hidden ${
                                     plan.highlight
                                         ? 'bg-gradient-to-b from-[#2E62FF]/15 via-[#0c1a2e] to-[#0a0f1c] border-[#2E62FF]/30 shadow-[0_0_60px_rgba(46,98,255,0.15)] lg:scale-[1.03] z-10'
@@ -310,9 +312,9 @@ export default function AccountsPage() {
             <section id="comparison-table" className="relative py-20 md:py-28 bg-[#f7f8fa]">
                 <div className="max-w-5xl mx-auto px-6">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                         className="text-center mb-16"
                     >
                         <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#2E62FF] mb-4">Detailed Comparison</p>
@@ -322,10 +324,10 @@ export default function AccountsPage() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 25 }}
+                        initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                        transition={{ delay: isMobile ? 0 : 0.1 }}
                         className="rounded-[1.5rem] border border-neutral-200 overflow-hidden bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]"
                     >
                         {/* Header */}
@@ -382,9 +384,9 @@ export default function AccountsPage() {
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                         className="text-center mb-16 md:mb-20"
                     >
                         <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-[#2E62FF]/5 border border-[#2E62FF]/10 mb-8">
@@ -441,10 +443,10 @@ export default function AccountsPage() {
                         ].map((card, idx) => (
                             <motion.div
                                 key={idx}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1 }}
                                 className={`group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border transition-all duration-500 p-8 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] bg-white ${card.classes.split(' ')[0]}`}
                             >
                                 <div className={`absolute inset-0 z-0 opacity-50 pointer-events-none ${card.classes.split(' ')[1]}`} />
@@ -479,10 +481,10 @@ export default function AccountsPage() {
                         ].map((stat, i) => (
                             <motion.div
                                 key={stat.label}
-                                initial={{ opacity: 0, y: 15 }}
+                                initial={{ opacity: 0, y: isMobile ? 8 : 15 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.08 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : i * 0.08 }}
                                 className="text-center"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-white text-[#2E62FF] border border-neutral-100 shadow-sm flex items-center justify-center mx-auto mb-4">
@@ -544,9 +546,9 @@ export default function AccountsPage() {
                 </div>
                 <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 25 }}
+                        initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
                     >
                         <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] font-black text-white tracking-tighter leading-[0.95] mb-6 drop-shadow-2xl">
                             Start Trading With <br className="hidden md:block" />

@@ -16,6 +16,7 @@ import { AuroraText } from '@/components/ui/aurora-text';
 import Link from 'next/link';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import { TradingViewWidget } from '@/components/TradingViewWidget';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function SharesPage() {
     const [active, setActive] = React.useState<(typeof marketCards)[number] | null>(null);
@@ -23,6 +24,7 @@ export default function SharesPage() {
     const [headerOffset, setHeaderOffset] = React.useState(100);
     const id = React.useId();
     const ref = React.useRef<HTMLDivElement>(null);
+    const isMobile = useIsMobile();
 
     React.useEffect(() => {
         const updateOffset = () => {
@@ -92,9 +94,9 @@ export default function SharesPage() {
                         {/* Left Column — Content */}
                         <div className="text-center lg:text-left">
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8 }}
+                                transition={{ duration: isMobile ? 0.5 : 0.8 }}
                                 className="flex flex-col items-center lg:items-start"
                             >
                                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2E62FF]/10 border border-[#2E62FF]/20 mb-5 md:mb-6 backdrop-blur-md">
@@ -200,9 +202,9 @@ export default function SharesPage() {
             {/* ═══════════════════════════════════════════════════════ */}
             <section id="shares-what-is" className="relative py-28 md:py-36 bg-[#030712] text-white overflow-hidden">
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
-                    <div className="max-w-4xl mx-auto text-center mb-20">
+                    <div className="max-w-4xl mx-auto text-center mb-12 md:mb-20">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
@@ -220,10 +222,10 @@ export default function SharesPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Bullish Action */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
+                            initial={{ opacity: 0, x: isMobile ? -15 : -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="group p-10 rounded-[3rem] bg-emerald-500/[0.02] border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-500"
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-emerald-500/[0.02] border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-500"
                         >
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="p-4 rounded-2xl bg-emerald-500/10 text-emerald-500">
@@ -239,10 +241,10 @@ export default function SharesPage() {
 
                         {/* Bearish Action */}
                         <motion.div
-                            initial={{ opacity: 0, x: 30 }}
+                            initial={{ opacity: 0, x: isMobile ? 15 : 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="group p-10 rounded-[3rem] bg-rose-500/[0.02] border border-rose-500/10 hover:border-rose-500/30 transition-all duration-500"
+                            viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                            className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-rose-500/[0.02] border border-rose-500/10 hover:border-rose-500/30 transition-all duration-500"
                         >
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="p-4 rounded-2xl bg-rose-500/10 text-rose-500">
@@ -271,10 +273,10 @@ export default function SharesPage() {
                         
                         {/* Left Column — The Pitch */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                            transition={{ duration: isMobile ? 0.5 : 0.8 }}
                             className="lg:sticky lg:top-32"
                         >
                             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-md">
@@ -358,10 +360,10 @@ export default function SharesPage() {
                             ].map((feature, idx) => (
                                 <motion.div
                                     key={feature.num}
-                                    initial={{ opacity: 0, y: 25 }}
+                                    initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1, duration: 0.6 }}
+                                    viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                    transition={{ delay: isMobile ? 0 : idx * 0.1, duration: isMobile ? 0.4 : 0.6 }}
                                     className="group p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/[0.06] hover:border-[#2E62FF]/20 hover:bg-[#2E62FF]/[0.04] transition-all duration-500"
                                 >
                                     <div className="flex items-center justify-between mb-5">
@@ -433,11 +435,11 @@ export default function SharesPage() {
                         ].map((benefit, idx) => (
                             <motion.div
                                 key={benefit.title}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group p-10 rounded-[3rem] bg-white border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] transition-all duration-500"
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1 }}
+                                className="group p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-white border border-neutral-100 hover:border-[#2E62FF]/20 hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] transition-all duration-500"
                             >
                                 <div className="w-14 h-14 rounded-2xl bg-neutral-50 group-hover:bg-[#2E62FF] flex items-center justify-center text-neutral-400 group-hover:text-white transition-all duration-500 mb-8">
                                     {benefit.icon}
@@ -469,10 +471,10 @@ export default function SharesPage() {
                             <motion.div
                                 key={card.title}
                                 onClick={() => { setActive(card); setSelectedPair(card.pairs[0]); setMobileTab('chart'); }}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
+                                viewport={{ once: true, margin: isMobile ? "-30px" : "0px" }}
+                                transition={{ delay: isMobile ? 0 : idx * 0.1 }}
                                 className="group relative bg-white rounded-[2.5rem] p-8 cursor-pointer border border-neutral-200 hover:border-[#2E62FF]/30 hover:shadow-[0_20px_60px_-15px_rgba(46,98,255,0.1)] transition-all duration-500"
                             >
                                 <div className="absolute top-0 left-8 right-8 h-0.5 bg-transparent group-hover:bg-[#2E62FF] transition-colors rounded-full" />
@@ -505,10 +507,10 @@ export default function SharesPage() {
             <section id="shares-live-data" className="relative py-20 bg-[#030712]">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: isMobile ? 0.4 : 0.6 }}
                         className="mb-12"
                     >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4 backdrop-blur-md">
@@ -524,10 +526,10 @@ export default function SharesPage() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.15 }}
+                        transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0 : 0.15 }}
                         className="grid grid-cols-1 lg:grid-cols-2 gap-6"
                     >
                         {/* Market Overview Widget */}
@@ -633,11 +635,11 @@ export default function SharesPage() {
                             <X size={14} className="text-white" />
                         </motion.button>
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-                            exit={{ opacity: 0, scale: 0.95, y: 10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
+                            initial={{ opacity: 0, scale: isMobile ? 0.98 : 0.92, y: isMobile ? 50 : 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0, transition: { duration: isMobile ? 0.3 : 0.35, ease: [0.22, 1, 0.36, 1] } }}
+                            exit={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 30 : 10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
                             ref={ref}
-                            className="w-full max-w-[1140px] h-full max-h-[850px] bg-[#0c1a2e] rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col md:flex-row pointer-events-auto"
+                            className="w-full max-w-[1140px] h-full max-h-[85vh] md:max-h-[850px] bg-[#0c1a2e] rounded-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col md:flex-row pointer-events-auto"
                         >
                             {/* Mobile Toggle Strip */}
                             <div className="flex md:hidden pt-8 px-6 pb-2 items-center justify-center bg-[#0c1a2e] flex-shrink-0">
